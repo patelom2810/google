@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Enhanced Auth</title>
+    <link rel="icon" href="https://www.google.com/favicon.ico" type="image/x-icon">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Geometric Elements */
+        .geometric-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .shape {
+            position: absolute;
+            opacity: 0.05;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .square {
+            width: 100px;
+            height: 100px;
+            background: #fff;
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .triangle {
+            width: 0;
+            height: 0;
+            border-left: 50px solid transparent;
+            border-right: 50px solid transparent;
+            border-bottom: 80px solid #fff;
+            top: 20%;
+            right: 15%;
+            animation-delay: 2s;
+        }
+
+        .circle {
+            width: 120px;
+            height: 120px;
+            background: #fff;
+            border-radius: 50%;
+            bottom: 15%;
+            left: 20%;
+            animation-delay: 4s;
+        }
+
+        .square-2 {
+            width: 80px;
+            height: 80px;
+            background: #fff;
+            bottom: 20%;
+            right: 10%;
+            animation-delay: 1s;
+            transform: rotate(45deg);
+        }
+
+        .triangle-2 {
+            width: 0;
+            height: 0;
+            border-left: 40px solid transparent;
+            border-right: 40px solid transparent;
+            border-bottom: 60px solid #fff;
+            top: 60%;
+            left: 5%;
+            animation-delay: 3s;
+        }
+
+        .circle-2 {
+            width: 90px;
+            height: 90px;
+            background: #fff;
+            border-radius: 50%;
+            top: 5%;
+            right: 5%;
+            animation-delay: 5s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(180deg); }
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #ff6b6b, #feca57, #1dd1a1, #5f27cd);
+            background-size: 400% 400%;
+            animation: gradient 10s ease infinite;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .avatar {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 32px;
+            font-weight: bold;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .avatar::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 50%);
+            top: -50%;
+            left: -50%;
+            transform: rotate(35deg);
+        }
+
+        .user-details h1 {
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+
+        .user-details p {
+            color: #666;
+            font-size: 16px;
+        }
+
+        .love-message {
+            color: #ff6b6b;
+            font-size: 16px;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .heart {
+            color: #ff4757;
+            display: inline-block;
+            font-size: 18px;
+            animation: heartbeat 1.5s infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .logout-btn {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.2);
+        }
+
+        .logout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(231, 76, 60, 0.3);
+        }
+
+        .welcome-banner {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.85));
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome-banner h2 {
+            color: #333;
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+
+        .welcome-banner p {
+            color: #666;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, #667eea, #764ba2);
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            color: white;
+            font-size: 24px;
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.2);
+        }
+
+        .card h3 {
+            color: #333;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .stat-number {
+            font-size: 36px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            text-align: center;
+            border-radius: 20px;
+            margin-top: 30px;
+            color: #666;
+            font-size: 14px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            .header {
+                padding: 20px;
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .user-info {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .avatar {
+                width: 60px;
+                height: 60px;
+                font-size: 24px;
+            }
+
+            .user-details h1 {
+                font-size: 24px;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+            .shape {
+                display: none;
+            }
+
+            .welcome-banner h2 {
+                font-size: 24px;
+            }
+
+            .welcome-banner p {
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .card {
+                padding: 15px;
+            }
+
+            .card-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+
+            .stat-number {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="geometric-bg">
+        <div class="shape square"></div>
+        <div class="shape triangle"></div>
+        <div class="shape circle"></div>
+        <div class="shape square-2"></div>
+        <div class="shape triangle-2"></div>
+        <div class="shape circle-2"></div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <div class="user-info">
+                <div class="avatar" id="userAvatar">U</div>
+                <div class="user-details">
+                    <h1 id="userName">Welcome User</h1>
+                    <p id="userEmail">user@example.com</p>
+                    <div class="love-message">
+                        <span>Lots of love from Om</span>
+                        <span class="heart">❤</span>
+                    </div>
+                </div>
+            </div>
+            <button class="logout-btn" id="logoutBtn">Logout</button>
+        </div>
+
+        <div class="welcome-banner">
+            <h2>Welcome to Your Dashboard</h2>
+            <p>We're thrilled to have you here! Explore all the amazing features we've prepared for you.</p>
+        </div>
+
+        <div class="dashboard-grid">
+            <div class="card">
+                <div class="card-icon">📊</div>
+                <h3>Analytics</h3>
+                <p>View your account analytics and performance metrics. Track your progress and see detailed insights about your activity.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">⚙️</div>
+                <h3>Settings</h3>
+                <p>Manage your account settings, preferences, and security options. Customize your experience to suit your needs.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">👥</div>
+                <h3>Team</h3>
+                <p>Collaborate with your team members and manage permissions. Invite new members and organize your workspace.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">📈</div>
+                <h3>Reports</h3>
+                <p>Generate comprehensive reports and export your data. Get insights into your performance and growth metrics.</p>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">1,234</div>
+                <div class="stat-label">Total Views</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-number">567</div>
+                <div class="stat-label">Active Users</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-number">89%</div>
+                <div class="stat-label">Success Rate</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-number">42</div>
+                <div class="stat-label">Projects</div>
+            </div>
+        </div>
+
+        <div class="footer">
+            &copy; 2025 Enhanced Auth System. All rights reserved.
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDUAVH5cpAcXMaOrmSB8hJX2YaclUSYNls",
+            authDomain: "authloginom.firebaseapp.com",
+            projectId: "authloginom",
+            storageBucket: "authloginom.appspot.com",
+            messagingSenderId: "144785802751",
+            appId: "1:144785802751:web:43367ab82b04dc722953ca",
+            measurementId: "G-TZSHH3MRWZ"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // Update user info
+                const userName = user.displayName || 'User';
+                const userEmail = user.email;
+                const userInitial = userName.charAt(0).toUpperCase();
+
+                document.getElementById('userName').textContent = `Welcome, ${userName}`;
+                document.getElementById('userEmail').textContent = userEmail;
+                document.getElementById('userAvatar').textContent = userInitial;
+            } else {
+                // Redirect to login if not logged in
+                window.location.href = 'index.html';
+            }
+        });
+
+        document.getElementById('logoutBtn').addEventListener('click', async () => {
+            try {
+                await signOut(auth);
+                window.location.href = 'index.html';
+            } catch (error) {
+                console.error('Logout error:', error);
+            }
+        });
+    </script>
+</body>
+</html>
