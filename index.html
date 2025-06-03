@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Enhanced Auth</title>
-    <link rel="icon" href="https://www.google.com/favicon.ico" type="image/x-icon">
+    <title>AuthLog - Secure Authentication Platform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -13,93 +13,33 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow-x: hidden;
             flex-direction: column;
+            overflow-x: hidden;
         }
 
-        /* Geometric Elements */
-        .geometric-bg {
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .background-animation::before {
+            content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            overflow: hidden;
-            z-index: 1;
-        }
-
-        .shape {
-            position: absolute;
-            opacity: 0.1;
-            animation: float 6s ease-in-out infinite;
-        }
-
-        .square {
-            width: 80px;
-            height: 80px;
-            background: #fff;
-            top: 10%;
-            left: 10%;
-            animation-delay: 0s;
-        }
-
-        .triangle {
-            width: 0;
-            height: 0;
-            border-left: 40px solid transparent;
-            border-right: 40px solid transparent;
-            border-bottom: 70px solid #fff;
-            top: 20%;
-            right: 15%;
-            animation-delay: 2s;
-        }
-
-        .circle {
-            width: 100px;
-            height: 100px;
-            background: #fff;
-            border-radius: 50%;
-            bottom: 15%;
-            left: 20%;
-            animation-delay: 4s;
-        }
-
-        .square-2 {
-            width: 60px;
-            height: 60px;
-            background: #fff;
-            bottom: 20%;
-            right: 10%;
-            animation-delay: 1s;
-            transform: rotate(45deg);
-        }
-
-        .triangle-2 {
-            width: 0;
-            height: 0;
-            border-left: 30px solid transparent;
-            border-right: 30px solid transparent;
-            border-bottom: 50px solid #fff;
-            top: 60%;
-            left: 5%;
-            animation-delay: 3s;
-        }
-
-        .circle-2 {
-            width: 70px;
-            height: 70px;
-            background: #fff;
-            border-radius: 50%;
-            top: 5%;
-            right: 5%;
-            animation-delay: 5s;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><radialGradient id="a" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(255,255,255,0.1)"/><stop offset="100%" stop-color="rgba(255,255,255,0)"/></radialGradient></defs><circle cx="20" cy="20" r="10" fill="url(%23a)"/><circle cx="80" cy="40" r="8" fill="url(%23a)"/><circle cx="40" cy="80" r="12" fill="url(%23a)"/><circle cx="90" cy="90" r="6" fill="url(%23a)"/><circle cx="10" cy="60" r="8" fill="url(%23a)"/></svg>');
+            animation: float 20s ease-in-out infinite;
         }
 
         @keyframes float {
@@ -108,133 +48,245 @@
         }
 
         .container {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px;
-            text-align: center;
-            position: relative;
-            z-index: 10;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            margin: 20px;
-        }
-
-        .logo {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            border-radius: 50%;
-            margin: 0 auto 30px;
+            flex: 1;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-size: 32px;
-            font-weight: bold;
+            padding: 20px;
+            position: relative;
+        }
+
+        .login-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            box-shadow: 0 32px 64px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            max-width: 450px;
+            width: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: slideUp 0.8s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .login-header {
+            text-align: center;
+            padding: 40px 40px 20px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+        }
+
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            margin-bottom: 24px;
+            box-shadow: 0 12px 24px rgba(102, 126, 234, 0.3);
             position: relative;
             overflow: hidden;
         }
 
-        .logo::after {
+        .logo::before {
             content: '';
             position: absolute;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 50%);
-            top: -50%;
-            left: -50%;
-            transform: rotate(35deg);
+            top: 50%;
+            left: 50%;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
         }
 
-        h1 {
-            color: #333;
-            margin-bottom: 10px;
+        .logo::after {
+            content: '🔐';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 32px;
+            z-index: 1;
+        }
+
+        .brand-name {
+            font-size: 32px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+            letter-spacing: -1px;
+        }
+
+        .brand-tagline {
+            color: #6b7280;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .login-body {
+            padding: 40px;
+        }
+
+        .welcome-text {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .welcome-text h2 {
+            color: #1f2937;
             font-size: 28px;
-            font-weight: 600;
+            font-weight: 700;
+            margin-bottom: 8px;
         }
 
-        .subtitle {
-            color: #666;
-            margin-bottom: 30px;
-            font-size: 14px;
+        .welcome-text p {
+            color: #6b7280;
+            font-size: 15px;
+            line-height: 1.6;
         }
 
         .form-group {
-            margin-bottom: 20px;
-            text-align: left;
+            margin-bottom: 24px;
+            position: relative;
         }
 
-        label {
+        .form-group label {
             display: block;
+            color: #374151;
+            font-size: 14px;
+            font-weight: 600;
             margin-bottom: 8px;
-            color: #555;
-            font-weight: 500;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 16px 20px 16px 48px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: #f9fafb;
+            color: #1f2937;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            background: #ffffff;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9ca3af;
+            font-size: 18px;
+        }
+
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
             font-size: 14px;
         }
 
-        input[type="email"],
-        input[type="password"] {
-            width: 100%;
-            padding: 15px;
-            border: 2px solid #e1e5e9;
-            border-radius: 10px;
-            font-size: 16px;
-            transition: all 0.3s ease;
-            background: #f8f9fa;
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #6b7280;
+            font-weight: 500;
         }
 
-        input[type="email"]:focus,
-        input[type="password"]:focus {
-            outline: none;
-            border-color: #667eea;
-            background: white;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        .remember-me input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin: 0;
+            accent-color: #667eea;
         }
 
-        .btn {
+        .forgot-password {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .forgot-password:hover {
+            color: #5a67d8;
+        }
+
+        .login-btn {
             width: 100%;
-            padding: 15px;
+            padding: 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
             border: none;
-            border-radius: 10px;
+            border-radius: 12px;
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            margin-bottom: 15px;
+            margin-bottom: 24px;
+            position: relative;
+            overflow: hidden;
         }
 
-        .btn-primary {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
+        .login-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
         }
 
-        .btn-primary:hover {
+        .login-btn:hover::before {
+            left: 100%;
+        }
+
+        .login-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 12px 24px rgba(102, 126, 234, 0.4);
         }
 
-        .btn-google {
-            background: #fff;
-            color: #333;
-            border: 2px solid #e1e5e9;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .btn-google:hover {
-            background: #f8f9fa;
-            border-color: #667eea;
+        .login-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
         }
 
         .divider {
-            margin: 25px 0;
-            position: relative;
             text-align: center;
+            margin: 32px 0;
+            position: relative;
+            color: #9ca3af;
+            font-size: 14px;
+            font-weight: 500;
         }
 
         .divider::before {
@@ -244,160 +296,223 @@
             left: 0;
             right: 0;
             height: 1px;
-            background: #e1e5e9;
+            background: linear-gradient(90deg, transparent, #e5e7eb, transparent);
         }
 
         .divider span {
             background: rgba(255, 255, 255, 0.95);
-            padding: 0 15px;
-            color: #666;
-            font-size: 14px;
+            padding: 0 20px;
         }
 
-        .link {
-            color: #667eea;
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        .link:hover {
-            text-decoration: underline;
-        }
-
-        .error {
-            color: #e74c3c;
-            font-size: 14px;
-            margin-top: 10px;
-            display: none;
-        }
-
-        .success {
-            color: #27ae60;
-            font-size: 14px;
-            margin-top: 10px;
-            display: none;
-        }
-
-        .footer {
-            margin-top: 20px;
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 14px;
-            text-align: center;
-            position: relative;
-            z-index: 10;
-            padding: 20px;
+        .google-btn {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            background: #ffffff;
+            cursor: pointer;
+            transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
+            gap: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 24px;
         }
 
-        .heart {
-            color: #ff4757;
-            display: inline-block;
-            font-size: 18px;
-            margin: 0 5px;
-            animation: heartbeat 1.5s infinite;
+        .google-btn:hover {
+            border-color: #d1d5db;
+            background: #f9fafb;
+            transform: translateY(-1px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .google-logo {
+            width: 20px;
+            height: 20px;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="%234285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="%2334A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="%23FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="%23EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>') no-repeat center;
+            background-size: contain;
+        }
+
+        .create-account {
+            text-align: center;
+            color: #6b7280;
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .create-account a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 700;
+            transition: color 0.3s ease;
+        }
+
+        .create-account a:hover {
+            color: #5a67d8;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 24px;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .footer .heart {
+            color: #ff6b6b;
+            margin: 0 4px;
+            animation: heartbeat 1.5s ease-in-out infinite;
         }
 
         @keyframes heartbeat {
             0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.2); }
+            50% { transform: scale(1.1); }
         }
 
-        /* Responsive Design */
+        .error-message, .success-message {
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            display: none;
+        }
+
+        .error-message {
+            background: #fef2f2;
+            color: #dc2626;
+            border: 1px solid #fecaca;
+        }
+
+        .success-message {
+            background: #f0fdf4;
+            color: #16a34a;
+            border: 1px solid #bbf7d0;
+        }
+
         @media (max-width: 768px) {
             .container {
-                margin: 20px;
-                padding: 30px 25px;
+                padding: 16px;
             }
 
-            .shape {
-                display: none;
+            .login-card {
+                max-width: 100%;
+                margin: 0;
             }
 
-            h1 {
-                font-size: 24px;
+            .login-header {
+                padding: 32px 24px 16px;
             }
 
-            .logo {
-                width: 60px;
-                height: 60px;
+            .login-body {
+                padding: 32px 24px;
+            }
+
+            .brand-name {
+                font-size: 28px;
+            }
+
+            .welcome-text h2 {
                 font-size: 24px;
             }
         }
 
         @media (max-width: 480px) {
-            .container {
-                padding: 25px 20px;
+            .login-header {
+                padding: 24px 20px 12px;
             }
 
-            input[type="email"],
-            input[type="password"],
-            .btn {
-                padding: 12px;
-                font-size: 14px;
+            .login-body {
+                padding: 24px 20px;
+            }
+
+            .brand-name {
+                font-size: 24px;
+            }
+
+            .welcome-text h2 {
+                font-size: 20px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="geometric-bg">
-        <div class="shape square"></div>
-        <div class="shape triangle"></div>
-        <div class="shape circle"></div>
-        <div class="shape square-2"></div>
-        <div class="shape triangle-2"></div>
-        <div class="shape circle-2"></div>
-    </div>
-
+    <div class="background-animation"></div>
+    
     <div class="container">
-        <div class="logo">A</div>
-        <h1>Welcome Back</h1>
-        <p class="subtitle">Sign in to your account</p>
-
-        <form id="loginForm">
-            <div class="form-group">
-                <label for="email">Email Address</label>
-                <input type="email" id="email" name="email" required>
+        <div class="login-card">
+            <div class="login-header">
+                <div class="logo"></div>
+                <div class="brand-name">AuthLog</div>
+                <div class="brand-tagline">Secure Authentication Platform</div>
             </div>
+            
+            <div class="login-body">
+                <div class="welcome-text">
+                    <h2>Welcome Back! 👋</h2>
+                    <p>Sign in to your account to continue your secure journey with us</p>
+                </div>
 
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" required>
+                <div class="error-message" id="errorMessage"></div>
+                <div class="success-message" id="successMessage"></div>
+
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <div class="input-wrapper">
+                            <input type="email" id="email" placeholder="Enter your email" required>
+                            <div class="input-icon">📧</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <div class="input-wrapper">
+                            <input type="password" id="password" placeholder="Enter your password" required>
+                            <div class="input-icon">🔒</div>
+                        </div>
+                    </div>
+
+                    <div class="form-options">
+                        <label class="remember-me">
+                            <input type="checkbox" id="rememberMe">
+                            Remember me
+                        </label>
+                        <a href="#" class="forgot-password">Forgot password?</a>
+                    </div>
+
+                    <button type="submit" class="login-btn" id="loginBtn">
+                        Sign In
+                    </button>
+                </form>
+
+                <div class="divider">
+                    <span>or continue with</span>
+                </div>
+
+                <button class="google-btn" id="googleLoginBtn">
+                    <div class="google-logo"></div>
+                    Continue with Google
+                </button>
+
+                <div class="create-account">
+                    Don't have an account? <a href="register.html">Create one now</a>
+                </div>
             </div>
-
-            <button type="submit" class="btn btn-primary">Sign In</button>
-        </form>
-
-        <div class="divider">
-            <span>or continue with</span>
         </div>
-
-        <button id="googleLogin" class="btn btn-google">
-            <svg width="20" height="20" viewBox="0 0 24 24">
-                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
-                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
-            </svg>
-            Continue with Google
-        </button>
-
-        <div class="error" id="errorMessage"></div>
-        <div class="success" id="successMessage"></div>
-
-        <p style="margin-top: 20px; color: #666; font-size: 14px;">
-            Don't have an account? <a href="register.html" class="link">Sign up</a>
-        </p>
     </div>
 
-    <div class="footer">
-        Made with <span class="heart">❤</span> by Om Patel &copy; 2025
-    </div>
+    <footer class="footer">
+        Made with <span class="heart">❤️</span> by Om Patel © 2025
+    </footer>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+        import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyDUAVH5cpAcXMaOrmSB8hJX2YaclUSYNls",
@@ -413,60 +528,90 @@
         const auth = getAuth(app);
         const provider = new GoogleAuthProvider();
 
+        const loginForm = document.getElementById('loginForm');
+        const googleLoginBtn = document.getElementById('googleLoginBtn');
+        const errorMessage = document.getElementById('errorMessage');
+        const successMessage = document.getElementById('successMessage');
+        const loginBtn = document.getElementById('loginBtn');
+
         function showError(message) {
-            const errorDiv = document.getElementById('errorMessage');
-            errorDiv.textContent = message;
-            errorDiv.style.display = 'block';
-            setTimeout(() => {
-                errorDiv.style.display = 'none';
-            }, 5000);
+            errorMessage.textContent = message;
+            errorMessage.style.display = 'block';
+            successMessage.style.display = 'none';
         }
 
         function showSuccess(message) {
-            const successDiv = document.getElementById('successMessage');
-            successDiv.textContent = message;
-            successDiv.style.display = 'block';
-            setTimeout(() => {
-                successDiv.style.display = 'none';
-            }, 3000);
+            successMessage.textContent = message;
+            successMessage.style.display = 'block';
+            errorMessage.style.display = 'none';
         }
 
-        // Email/Password Login
-        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+        function hideMessages() {
+            errorMessage.style.display = 'none';
+            successMessage.style.display = 'none';
+        }
+
+        loginForm.addEventListener('submit', async (e) => {
             e.preventDefault();
+            hideMessages();
+            
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
+            
+            loginBtn.disabled = true;
+            loginBtn.textContent = 'Signing in...';
 
             try {
                 await signInWithEmailAndPassword(auth, email, password);
-                showSuccess('Login successful! Redirecting...');
+                showSuccess('Welcome back! Redirecting to dashboard...');
                 setTimeout(() => {
                     window.location.href = 'dashboard.html';
                 }, 1500);
             } catch (error) {
-                showError(error.message);
+                showError(getErrorMessage(error.code));
+                loginBtn.disabled = false;
+                loginBtn.textContent = 'Sign In';
             }
         });
 
-        // Google Login
-        document.getElementById('googleLogin').addEventListener('click', async () => {
+        googleLoginBtn.addEventListener('click', async () => {
+            hideMessages();
+            googleLoginBtn.disabled = true;
+            
             try {
                 await signInWithPopup(auth, provider);
-                showSuccess('Login successful! Redirecting...');
+                showSuccess('Successfully signed in with Google! Redirecting...');
                 setTimeout(() => {
                     window.location.href = 'dashboard.html';
                 }, 1500);
             } catch (error) {
-                showError(error.message);
+                showError('Google sign-in failed. Please try again.');
+                googleLoginBtn.disabled = false;
             }
         });
 
-        // Check if user is already logged in
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 window.location.href = 'dashboard.html';
             }
         });
+
+        function getErrorMessage(errorCode) {
+            switch (errorCode) {
+                case 'auth/user-not-found':
+                    return 'No account found with this email address.';
+                case 'auth/wrong-password':
+                    return 'Incorrect password. Please try again.';
+                case 'auth/invalid-email':
+                    return 'Please enter a valid email address.';
+                case 'auth/user-disabled':
+                    return 'This account has been disabled.';
+                case 'auth/too-many-requests':
+                    return 'Too many failed attempts. Please try again later.';
+                default:
+                    return 'Sign-in failed. Please check your credentials and try again.';
+            }
+        }
     </script>
 </body>
 </html>
