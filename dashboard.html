@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Enhanced Auth</title>
-    <link rel="icon" href="https://www.google.com/favicon.ico" type="image/x-icon">
+    <title>AuthLog - Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -13,197 +13,176 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
             min-height: 100vh;
-            position: relative;
-            overflow-x: hidden;
+            color: #1e293b;
         }
 
-        /* Geometric Elements */
-        .geometric-bg {
-            position: fixed;
+        .navbar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 0;
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.15);
+            position: sticky;
             top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            z-index: 1;
+            z-index: 100;
         }
 
-        .shape {
-            position: absolute;
-            opacity: 0.05;
-            animation: float 8s ease-in-out infinite;
-        }
-
-        .square {
-            width: 100px;
-            height: 100px;
-            background: #fff;
-            top: 10%;
-            left: 10%;
-            animation-delay: 0s;
-        }
-
-        .triangle {
-            width: 0;
-            height: 0;
-            border-left: 50px solid transparent;
-            border-right: 50px solid transparent;
-            border-bottom: 80px solid #fff;
-            top: 20%;
-            right: 15%;
-            animation-delay: 2s;
-        }
-
-        .circle {
-            width: 120px;
-            height: 120px;
-            background: #fff;
-            border-radius: 50%;
-            bottom: 15%;
-            left: 20%;
-            animation-delay: 4s;
-        }
-
-        .square-2 {
-            width: 80px;
-            height: 80px;
-            background: #fff;
-            bottom: 20%;
-            right: 10%;
-            animation-delay: 1s;
-            transform: rotate(45deg);
-        }
-
-        .triangle-2 {
-            width: 0;
-            height: 0;
-            border-left: 40px solid transparent;
-            border-right: 40px solid transparent;
-            border-bottom: 60px solid #fff;
-            top: 60%;
-            left: 5%;
-            animation-delay: 3s;
-        }
-
-        .circle-2 {
-            width: 90px;
-            height: 90px;
-            background: #fff;
-            border-radius: 50%;
-            top: 5%;
-            right: 5%;
-            animation-delay: 5s;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-30px) rotate(180deg); }
-        }
-
-        .container {
-            position: relative;
-            z-index: 10;
-            padding: 20px;
-            max-width: 1200px;
+        .nav-container {
+            max-width: 1400px;
             margin: 0 auto;
-        }
-
-        .header {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 20px 24px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 20px;
-            position: relative;
-            overflow: hidden;
         }
 
-        .header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: linear-gradient(90deg, #ff6b6b, #feca57, #1dd1a1, #5f27cd);
-            background-size: 400% 400%;
-            animation: gradient 10s ease infinite;
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 16px;
         }
 
-        @keyframes gradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        .nav-logo {
+            width: 48px;
+            height: 48px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-brand-name {
+            color: white;
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 24px;
         }
 
         .user-info {
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 16px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 12px 20px;
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
         }
 
-        .avatar {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            border-radius: 50%;
+        .user-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.2);
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 32px;
-            font-weight: bold;
-            position: relative;
+            font-weight: 700;
+            font-size: 16px;
             overflow: hidden;
-            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
         }
 
-        .avatar::after {
-            content: '';
-            position: absolute;
+        .user-avatar img {
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 50%);
-            top: -50%;
-            left: -50%;
-            transform: rotate(35deg);
+            object-fit: cover;
+            border-radius: 12px;
         }
 
-        .user-details h1 {
-            color: #333;
-            font-size: 28px;
-            margin-bottom: 5px;
+        .user-details h3 {
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 2px;
         }
 
         .user-details p {
-            color: #666;
-            font-size: 16px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 14px;
+        }
+
+        .logout-btn {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            padding: 12px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .logout-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-1px);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        .welcome-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 24px;
+            padding: 60px 40px;
+            text-align: center;
+            margin-bottom: 40px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><radialGradient id="a" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(255,255,255,0.1)"/><stop offset="100%" stop-color="rgba(255,255,255,0)"/></radialGradient></defs><circle cx="20" cy="20" r="8" fill="url(%23a)"/><circle cx="80" cy="40" r="6" fill="url(%23a)"/><circle cx="40" cy="80" r="10" fill="url(%23a)"/><circle cx="90" cy="90" r="4" fill="url(%23a)"/><circle cx="10" cy="60" r="6" fill="url(%23a)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .welcome-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .welcome-section h1 {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 16px;
+            letter-spacing: -1px;
         }
 
         .love-message {
-            color: #ff6b6b;
-            font-size: 16px;
-            margin-top: 10px;
+            font-size: 24px;
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
-            gap: 5px;
+            justify-content: center;
+            gap: 12px;
+            opacity: 0.95;
         }
 
-        .heart {
-            color: #ff4757;
-            display: inline-block;
-            font-size: 18px;
-            animation: heartbeat 1.5s infinite;
+        .love-message .heart {
+            color: #ff6b6b;
+            animation: heartbeat 1.5s ease-in-out infinite;
         }
 
         @keyframes heartbeat {
@@ -211,305 +190,401 @@
             50% { transform: scale(1.2); }
         }
 
-        .logout-btn {
-            background: linear-gradient(135deg, #e74c3c, #c0392b);
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.2);
-        }
-
-        .logout-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(231, 76, 60, 0.3);
-        }
-
-        .welcome-banner {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.85));
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .welcome-banner h2 {
-            color: #333;
-            font-size: 32px;
-            margin-bottom: 15px;
-        }
-
-        .welcome-banner p {
-            color: #666;
+        .welcome-description {
             font-size: 18px;
+            opacity: 0.9;
             line-height: 1.6;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
         .dashboard-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-bottom: 30px;
+            grid-template-columns: 1fr 400px;
+            gap: 40px;
+            margin-bottom: 40px;
         }
 
-        .card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        .activity-section {
+            background: white;
             border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            position: relative;
-            overflow: hidden;
+            padding: 32px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e2e8f0;
         }
 
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: between;
+            margin-bottom: 24px;
         }
 
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 5px;
-            height: 100%;
-            background: linear-gradient(to bottom, #667eea, #764ba2);
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1e293b;
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
-        .card-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            border-radius: 15px;
+        .activity-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+
+        .activity-item:hover {
+            background: #f1f5f9;
+            transform: translateY(-1px);
+        }
+
+        .activity-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 20px;
             color: white;
-            font-size: 24px;
-            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.2);
-        }
-
-        .card h3 {
-            color: #333;
             font-size: 20px;
-            margin-bottom: 10px;
         }
 
-        .card p {
-            color: #666;
-            line-height: 1.6;
+        .activity-content h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 4px;
         }
 
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
+        .activity-content p {
+            font-size: 14px;
+            color: #64748b;
         }
 
-        .stat-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 25px;
+        .activity-time {
+            margin-left: auto;
+            font-size: 12px;
+            color: #94a3b8;
+            font-weight: 500;
+        }
+
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        .profile-card {
+            background: white;
+            border-radius: 20px;
+            padding: 32px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e2e8f0;
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: transform 0.3s ease;
         }
 
-        .stat-card:hover {
-            transform: translateY(-3px);
-        }
-
-        .stat-number {
+        .profile-avatar-large {
+            width: 100px;
+            height: 100px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
             font-size: 36px;
-            font-weight: bold;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 10px;
+            margin: 0 auto 24px;
+            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
+            overflow: hidden;
+        }
+
+        .profile-avatar-large img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 20px;
+        }
+
+        .profile-name {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 8px;
+        }
+
+        .profile-email {
+            font-size: 16px;
+            color: #64748b;
+            margin-bottom: 24px;
+        }
+
+        .profile-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 16px;
+            background: #f8fafc;
+            border-radius: 12px;
+        }
+
+        .stat-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 4px;
         }
 
         .stat-label {
-            color: #666;
-            font-size: 14px;
+            font-size: 12px;
+            color: #64748b;
+            font-weight: 500;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
         }
 
-        .footer {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(10px);
-            padding: 20px;
-            text-align: center;
+        .quick-actions {
+            background: white;
             border-radius: 20px;
-            margin-top: 30px;
-            color: #666;
-            font-size: 14px;
-            position: relative;
-            z-index: 10;
+            padding: 32px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e2e8f0;
         }
 
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .container {
-                padding: 15px;
+        .action-btn {
+            width: 100%;
+            padding: 16px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .action-btn:last-child {
+            margin-bottom: 0;
+        }
+
+        @media (max-width: 1024px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+                gap: 32px;
             }
 
-            .header {
-                padding: 20px;
+            .sidebar {
+                order: -1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
                 flex-direction: column;
-                text-align: center;
+                gap: 16px;
+                padding: 16px 20px;
             }
 
             .user-info {
                 flex-direction: column;
                 text-align: center;
+                gap: 12px;
             }
 
-            .avatar {
-                width: 60px;
-                height: 60px;
-                font-size: 24px;
+            .container {
+                padding: 24px 16px;
             }
 
-            .user-details h1 {
-                font-size: 24px;
+            .welcome-section {
+                padding: 40px 24px;
             }
 
-            .dashboard-grid {
+            .welcome-section h1 {
+                font-size: 36px;
+            }
+
+            .love-message {
+                font-size: 20px;
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .activity-section, .profile-card, .quick-actions {
+                padding: 24px;
+            }
+
+            .profile-stats {
                 grid-template-columns: 1fr;
-                gap: 20px;
-            }
-
-            .card {
-                padding: 20px;
-            }
-
-            .shape {
-                display: none;
-            }
-
-            .welcome-banner h2 {
-                font-size: 24px;
-            }
-
-            .welcome-banner p {
-                font-size: 16px;
             }
         }
 
         @media (max-width: 480px) {
-            .card {
-                padding: 15px;
-            }
-
-            .card-icon {
-                width: 50px;
-                height: 50px;
-                font-size: 20px;
-            }
-
-            .stat-number {
+            .welcome-section h1 {
                 font-size: 28px;
+            }
+
+            .love-message {
+                font-size: 18px;
+            }
+
+            .activity-section, .profile-card, .quick-actions {
+                padding: 20px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="geometric-bg">
-        <div class="shape square"></div>
-        <div class="shape triangle"></div>
-        <div class="shape circle"></div>
-        <div class="shape square-2"></div>
-        <div class="shape triangle-2"></div>
-        <div class="shape circle-2"></div>
-    </div>
-
-    <div class="container">
-        <div class="header">
-            <div class="user-info">
-                <div class="avatar" id="userAvatar">U</div>
-                <div class="user-details">
-                    <h1 id="userName">Welcome User</h1>
-                    <p id="userEmail">user@example.com</p>
-                    <div class="love-message">
-                        <span>Lots of love from Om</span>
-                        <span class="heart">❤</span>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <div class="nav-logo">🔐</div>
+                <div class="nav-brand-name">AuthLog</div>
+            </div>
+            <div class="nav-right">
+                <div class="user-info">
+                    <div class="user-avatar" id="navAvatar">👤</div>
+                    <div class="user-details">
+                        <h3 id="navUserName">Loading...</h3>
+                        <p id="navUserEmail">Loading...</p>
                     </div>
                 </div>
+                <button class="logout-btn" id="logoutBtn">
+                    🚪 Sign Out
+                </button>
             </div>
-            <button class="logout-btn" id="logoutBtn">Logout</button>
         </div>
+    </nav>
 
-        <div class="welcome-banner">
-            <h2>Welcome to Your Dashboard</h2>
-            <p>We're thrilled to have you here! Explore all the amazing features we've prepared for you.</p>
+    <div class="container">
+        <div class="welcome-section">
+            <div class="welcome-content">
+                <h1>Welcome Back! 👋</h1>
+                <div class="love-message">
+                    <span>Lots of love from Om</span>
+                    <span class="heart">❤️</span>
+                </div>
+                <p class="welcome-description">
+                    You're successfully logged into your secure AuthLog dashboard. 
+                    Manage your account, view your activity, and explore all the amazing features we have to offer.
+                </p>
+            </div>
         </div>
 
         <div class="dashboard-grid">
-            <div class="card">
-                <div class="card-icon">📊</div>
-                <h3>Analytics</h3>
-                <p>View your account analytics and performance metrics. Track your progress and see detailed insights about your activity.</p>
+            <div class="main-content">
+                <div class="activity-section">
+                    <div class="section-header">
+                        <h2 class="section-title">
+                            📊 Recent Activity
+                        </h2>
+                    </div>
+                    <div class="activity-list">
+                        <div class="activity-item">
+                            <div class="activity-icon">🔑</div>
+                            <div class="activity-content">
+                                <h4>Successful Login</h4>
+                                <p>You signed in to your account</p>
+                            </div>
+                            <div class="activity-time" id="loginTime">Just now</div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon">🛡️</div>
+                            <div class="activity-content">
+                                <h4>Security Check</h4>
+                                <p>Account security verified</p>
+                            </div>
+                            <div class="activity-time">2 minutes ago</div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon">📱</div>
+                            <div class="activity-content">
+                                <h4>Device Recognition</h4>
+                                <p>Login from trusted device</p>
+                            </div>
+                            <div class="activity-time">5 minutes ago</div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon">🌟</div>
+                            <div class="activity-content">
+                                <h4>Welcome Message</h4>
+                                <p>Dashboard accessed successfully</p>
+                            </div>
+                            <div class="activity-time">Just now</div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div class="card">
-                <div class="card-icon">⚙️</div>
-                <h3>Settings</h3>
-                <p>Manage your account settings, preferences, and security options. Customize your experience to suit your needs.</p>
-            </div>
+            <div class="sidebar">
+                <div class="profile-card">
+                    <div class="profile-avatar-large" id="profileAvatar">👤</div>
+                    <div class="profile-name" id="profileName">Loading...</div>
+                    <div class="profile-email" id="profileEmail">Loading...</div>
+                    
+                    <div class="profile-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">1</div>
+                            <div class="stat-label">Sessions</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="accountAge">0</div>
+                            <div class="stat-label">Days Active</div>
+                        </div>
+                    </div>
+                </div>
 
-            <div class="card">
-                <div class="card-icon">👥</div>
-                <h3>Team</h3>
-                <p>Collaborate with your team members and manage permissions. Invite new members and organize your workspace.</p>
+                <div class="quick-actions">
+                    <h3 class="section-title" style="margin-bottom: 20px;">⚡ Quick Actions</h3>
+                    <button class="action-btn">
+                        🔧 Account Settings
+                    </button>
+                    <button class="action-btn">
+                        🔒 Security Settings
+                    </button>
+                    <button class="action-btn">
+                        📊 View Analytics
+                    </button>
+                    <button class="action-btn">
+                        💬 Get Support
+                    </button>
+                </div>
             </div>
-
-            <div class="card">
-                <div class="card-icon">📈</div>
-                <h3>Reports</h3>
-                <p>Generate comprehensive reports and export your data. Get insights into your performance and growth metrics.</p>
-            </div>
-        </div>
-
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-number">1,234</div>
-                <div class="stat-label">Total Views</div>
-            </div>
-
-            <div class="stat-card">
-                <div class="stat-number">567</div>
-                <div class="stat-label">Active Users</div>
-            </div>
-
-            <div class="stat-card">
-                <div class="stat-number">89%</div>
-                <div class="stat-label">Success Rate</div>
-            </div>
-
-            <div class="stat-card">
-                <div class="stat-number">42</div>
-                <div class="stat-label">Projects</div>
-            </div>
-        </div>
-
-        <div class="footer">
-            &copy; 2025 Enhanced Auth System. All rights reserved.
         </div>
     </div>
 
@@ -530,29 +605,81 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
+        const logoutBtn = document.getElementById('logoutBtn');
+
+        function getInitials(name) {
+            if (!name) return '👤';
+            return name.split(' ').map(word => word[0]).join('').toUpperCase().slice(0, 2);
+        }
+
+        function calculateAccountAge(creationTime) {
+            const created = new Date(creationTime);
+            const now = new Date();
+            const diffTime = Math.abs(now - created);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            return diffDays;
+        }
+
+        function updateUserInfo(user) {
+            const displayName = user.displayName || 'User';
+            const email = user.email || 'No email';
+            const photoURL = user.photoURL;
+            const initials = getInitials(displayName);
+
+            // Update navigation
+            document.getElementById('navUserName').textContent = displayName;
+            document.getElementById('navUserEmail').textContent = email;
+            
+            // Update profile section
+            document.getElementById('profileName').textContent = displayName;
+            document.getElementById('profileEmail').textContent = email;
+
+            // Update avatars
+            const navAvatar = document.getElementById('navAvatar');
+            const profileAvatar = document.getElementById('profileAvatar');
+
+            if (photoURL) {
+                navAvatar.innerHTML = `<img src="${photoURL}" alt="Profile">`;
+                profileAvatar.innerHTML = `<img src="${photoURL}" alt="Profile">`;
+            } else {
+                navAvatar.textContent = initials;
+                profileAvatar.textContent = initials;
+            }
+
+            // Update account age
+            const accountAge = calculateAccountAge(user.metadata.creationTime);
+            document.getElementById('accountAge').textContent = accountAge;
+
+            // Update login time
+            document.getElementById('loginTime').textContent = 'Just now';
+        }
+
+        // Check authentication state
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                // Update user info
-                const userName = user.displayName || 'User';
-                const userEmail = user.email;
-                const userInitial = userName.charAt(0).toUpperCase();
-
-                document.getElementById('userName').textContent = `Welcome, ${userName}`;
-                document.getElementById('userEmail').textContent = userEmail;
-                document.getElementById('userAvatar').textContent = userInitial;
+                updateUserInfo(user);
             } else {
-                // Redirect to login if not logged in
                 window.location.href = 'index.html';
             }
         });
 
-        document.getElementById('logoutBtn').addEventListener('click', async () => {
+        // Logout functionality
+        logoutBtn.addEventListener('click', async () => {
             try {
                 await signOut(auth);
                 window.location.href = 'index.html';
             } catch (error) {
                 console.error('Logout error:', error);
+                alert('Logout failed. Please try again.');
             }
+        });
+
+        // Add click handlers for quick action buttons
+        document.querySelectorAll('.action-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const action = btn.textContent.trim();
+                alert(`${action} - Coming soon! 🚀`);
+            });
         });
     </script>
 </body>
